@@ -57,4 +57,5 @@ public:
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnEnChangeEdit2();
 	afx_msg void OnBnClickedButton3();
+	CMFCButton Button3_1;
 };

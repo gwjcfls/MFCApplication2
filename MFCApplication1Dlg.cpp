@@ -7,6 +7,7 @@
 #include "MFCApplication1.h"
 #include "MFCApplication1Dlg.h"
 #include "afxdialogex.h"
+#include "CMyButton.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -59,6 +60,7 @@ CMFCApplication1Dlg::CMFCApplication1Dlg(CWnd* pParent /*=nullptr*/)
 void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_BUTTON3, Button3_1);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
@@ -105,6 +107,18 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	//Button3_1.m_bTransparent = FALSE;
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT2);
+	// 创建字体对象
+	CFont font;
+	font.CreatePointFont(100, _T("STKaiti"));
+	// 设置字体
+	pEdit->SetFont(&font);
+
+	GetDlgItem(IDC_BUTTON3)->ModifyStyle(0, BS_OWNERDRAW, 0);
+	//Button3_1.m_bDontUseWinXPTheme = TRUE;
+	//Button3_1.SetFaceColor(RGB(0, 255, 0), true);
+	HICON hicon = AfxGetApp()->LoadIcon(IDI_ICON3); Button3_1.SetIcon(hicon);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -147,7 +161,8 @@ void CMFCApplication1Dlg::OnPaint()
 	}
 	else
 	{
-		CDialogEx::OnPaint();
+		//注释该语句：防止重复调用重画函数  
+		CDialogEx::OnPaint(); 
 	}
 }
 
@@ -191,14 +206,7 @@ void CMFCApplication1Dlg::OnBnClickedButton1()
 void CMFCApplication1Dlg::OnEnChangeEdit2()
 {
 	// 获取编辑框控件对象
-	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_EDIT2);
-
-	// 创建字体对象
-	CFont font;
-	font.CreatePointFont(100, _T("微软雅黑"));
-
-	// 设置字体
-	pEdit->SetFont(&font);
+	
 
 	// 设置背景颜色和文本颜色
 	//pEdit->SetBackgroundColor(FALSE, RGB(192, 192, 192)); // 设置背景为灰色
